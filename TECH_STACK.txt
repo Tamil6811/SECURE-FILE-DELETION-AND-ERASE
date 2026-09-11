@@ -1,0 +1,147 @@
+================================================================================
+AEGISFORENSICS: ENTERPRISE FORENSIC SANITIZATION & RECOVERY PLATFORM
+TECHNICAL STACK & ARCHITECTURAL SPECIFICATION
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Project Name        : AegisForensics (Forensic Data Sanitization & Recovery Engine)
+Platform Type       : Full-Stack Web + Native OS Hardware/Storage Forensic System
+Primary Focus       : Permanent Storage Sanitization, Anti-Forensic Metadata Purge,
+                      Live Recycle Bin & Physical Disk Recovery, Tamper-Evident Audit.
+Compliance Standards: NIST SP 800-88 Rev. 1, IEEE 2883-2022, DoD 5220.22-M, 
+                      British HMG IS5, German BSI-VS.
+
+
+2. FRONTEND ARCHITECTURE & TECH STACK
+--------------------------------------------------------------------------------
+- Core Framework    : React 19 (React 19.2.0)
+- Language          : TypeScript 5.9 (Strict Type Checking, ES2022 Target)
+- Bundler & Tooling : Vite 8.2 (Lightning fast HMR, Rollup optimized code splitting)
+- CSS Framework     : Tailwind CSS v4 (@tailwindcss/vite integration)
+- Icons & UI Assets : Lucide React (Complete forensic and hardware icon suite)
+- Visual Effects    : Canvas Confetti (Audit completion & recovery celebrations)
+- State Architecture: React Context API:
+                      * UIContext: 4-Theme Switcher (Light, Dark, Matrix, Midnight),
+                        Simple Mode vs. Advanced Mode toggle.
+                      * AuthContext: Role-Based Access Control (Admin vs. User).
+
+
+3. BACKEND & NATIVE OS STORAGE BRIDGE
+--------------------------------------------------------------------------------
+- Execution Engine  : Node.js (v24.x) embedded directly into Vite Dev Middleware
+- OS Integration    : Windows Management Instrumentation (WMI) & CIM Kernel Bridge
+- Automation Shell  : Windows PowerShell 5.1 / 7.x (-NoProfile, Base64 Encoded Commands)
+- COM API Bridge    : Windows Shell.Application COM Object (NameSpace 10 for $Recycle.Bin)
+- Native File I/O   : Direct Node.js fs / fs.promises (Buffer allocation, multi-pass
+                      sync file descriptors, direct unlinking, directory walking).
+
+
+4. CRYPTOGRAPHY & DATA INTEGRITY
+--------------------------------------------------------------------------------
+- Blockchain Ledger : Merkle Chained Hash Audit Log:
+                      RecordHash = SHA256(PrevHash + Timestamp + Action + Details)
+- Digital Hashes    : SHA-256 (NIST FIPS 180-4) and MD5 (RFC 1321) verification
+- Entropy Engine    : Shannon Entropy Calculator (0.0 to 8.0 bits/byte calculation)
+- Export Formats    : 
+  * jsPDF           : Cryptographically signed Certificates of Destruction
+  * JSZip           : Court-admissible forensic evidence packages (.ZIP) with
+                      CHAIN_OF_CUSTODY_MANIFEST.txt
+
+
+5. HARDWARE & STORAGE TARGET SPECIFICATION
+--------------------------------------------------------------------------------
+- Strict Device Scope:
+  1. INTERNAL STORAGE : Host NVMe SSDs & SATA SSDs (e.g. Micron NVMe 512GB)
+  2. EXTERNAL PENDRIVE: Removable USB Flash / Pen Drives (e.g. SanDisk USB 3.2)
+  * Note: SD cards, memory cards, and external spinning HDDs are strictly excluded.
+- Detection Commands:
+  * PowerShell CIM   : Get-PhysicalDisk | Select DeviceId, FriendlyName, MediaType, BusType, Size, SerialNumber
+  * Processor & RAM  : Get-CimInstance Win32_Processor, Win32_ComputerSystem
+
+
+6. SANITIZATION & OVERWRITE ALGORITHMS
+--------------------------------------------------------------------------------
+1. NIST SP 800-88 Rev. 1 Clear  : 1 Pass Pseudo-Random or Zero pattern
+2. NIST SP 800-88 Rev. 1 Purge  : Solid-state block cryptographic purge & NVMe Crypto Erase
+3. IEEE 2883-2022 Flash Purge   : Specialized SSD sanitization overcoming Wear-Leveling/FTL
+4. DoD 5220.22-M (E)            : 3 Passes (Zeroes -> Ones -> Pseudo-Random -> Verify)
+5. DoD 5220.22-M (ECE)          : 7 Passes (Multi-stage complement overwrite with verify)
+6. British HMG IS5 Enhanced     : 3 Passes with bit inversion and verification
+7. Custom Pattern Designer      : User-specified hex patterns (e.g. 0xAA, 0x55) and loops
+
+
+7. FORENSIC PURGE & SHREDDING MECHANICS
+--------------------------------------------------------------------------------
+- Target Types Supported:
+  1. FILE           : Granular multi-file queue selection
+  2. FOLDER         : Recursive directory tree shredding (e.g. TestCase/ folder)
+  3. STORAGE DEVICE : Hardware controller level sanitization
+- Anti-Forensic Layers:
+  * MACB Purge      : Overwrites Modified, Accessed, Created, and Birth timestamps
+  * ADS Removal     : Strips NTFS Alternate Data Streams (e.g. :Zone.Identifier:$DATA)
+  * Slack Space Wipe: Zeros unallocated cluster slack space at the tail of disk clusters
+  * Name Obfuscation: Renames file to pseudo-random hash before disk unlinking
+
+
+8. RECOVERY & CARVING CAPABILITIES
+--------------------------------------------------------------------------------
+- Windows Recycle Bin Engine:
+  * Automatically inspects C:\$Recycle.Bin via PowerShell COM API
+  * Recovers True Filename and original extension
+  * Recovers True Pre-Deletion Folder Location (e.g. Pictures, Downloads, Desktop)
+  * Recovers Deletion Timestamp (Date Deleted)
+  * Live Buffer Extraction for immediate in-browser inspection
+- Media Previewers:
+  * High-Resolution Raster Image Viewer (.jpg, .png, .gif, .bmp)
+  * Interactive Embedded PDF Document Viewer (.pdf)
+  * UTF-8 Text Decoder (.txt, .log, .json, .csv)
+  * Raw Byte Hex Viewer with offset highlights
+- Physical Disk Restore:
+  * 1-Click Restoration directly to host disk: TestCase\RecoveredEvidence\
+  * 1-Click Forensic Evidence Package Export (.ZIP)
+
+
+9. LOCAL BACKEND API SPECIFICATION (Vite Middleware)
+--------------------------------------------------------------------------------
+GET  /api/hardware/detect
+  - Queries physical host hardware and storage controllers via CIM/WMI.
+
+GET  /api/device/check-folder?path=<folderPath>
+  - Checks physical existence and enumerates items inside local test folders.
+
+POST /api/device/create-sample-folder
+  - Generates real test directory TestCase\ with sample photo, pdf, video, db, bin files.
+
+POST /api/device/shred-real-file
+  - Body: { targetPath, passes, patternType, wipeMetadata, wipeSlack }
+  - Performs real physical multi-pass overwrite and unlinks file from disk.
+
+GET  /api/recovery/scan-system-deleted?source=<RECYCLE_BIN|FOLDER>&folderPath=<path>
+  - Scans Windows Recycle Bin or local folder for recoverable deleted files.
+
+POST /api/recovery/extract-deleted-file
+  - Body: { name, originalPath }
+  - Safely extracts raw file bytes from Recycle Bin into memory for live preview.
+
+POST /api/recovery/restore-system-file
+  - Body: { name, originalPath, destinationFolder }
+  - Writes extracted file from Recycle Bin back to physical disk.
+
+
+10. DESIGN SYSTEM & ACCESSIBILITY
+--------------------------------------------------------------------------------
+- 4 Full Color Themes:
+  1. Light Enterprise : High-contrast crisp white surfaces (#ffffff) & dark slate text.
+  2. Dark Cyber       : Deep navy (#0b0f17) with glowing cyan accents.
+  3. Matrix Terminal  : Phosphor green (#10b981) on terminal black (#020703).
+  4. Midnight Purple  : Neon violet (#a855f7) on obsidian purple (#07040f).
+- High-Contrast Text Selection:
+  * Light Mode: #0284c7 (Sky 600) selection background with pure #ffffff white text.
+  * Dark Mode : rgba(6, 182, 212, 0.45) cyan selection with white text.
+- Simple Mode Toggle:
+  * Switches between simplified layman terms and detailed forensic audit telemetry.
+
+================================================================================
+END OF TECH STACK SPECIFICATION
+================================================================================

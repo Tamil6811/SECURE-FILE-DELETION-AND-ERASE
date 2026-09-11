@@ -1,0 +1,451 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-[#0b0f17] text-slate-100 font-sans antialiased min-h-screen transition-colors duration-200;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 90% 80%, rgba(16, 185, 129, 0.08), transparent 60%),
+      linear-gradient(180deg, #070a10 0%, #0c121d 100%);
+    background-attachment: fixed;
+  }
+
+  /* Default Dark Cyber Selection */
+  ::selection {
+    background-color: rgba(6, 182, 212, 0.45) !important;
+    color: #ffffff !important;
+  }
+
+  /* Light Theme High-Contrast Selection (Crisp Vibrant Blue + Pure White Text) */
+  html.theme-light ::selection,
+  html.theme-light *::selection,
+  html.light ::selection,
+  html.light *::selection,
+  html.theme-light input::selection,
+  html.theme-light textarea::selection,
+  html.light input::selection,
+  html.light textarea::selection {
+    background-color: #0284c7 !important; /* Tailwind sky-600 */
+    color: #ffffff !important;           /* Crisp White */
+    text-shadow: none !important;
+  }
+
+  /* Matrix Theme Selection */
+  html.theme-matrix ::selection,
+  html.theme-matrix *::selection {
+    background-color: #10b981 !important;
+    color: #020703 !important;
+  }
+
+  /* Midnight Theme Selection */
+  html.theme-midnight ::selection,
+  html.theme-midnight *::selection {
+    background-color: #9333ea !important;
+    color: #ffffff !important;
+  }
+
+  /* Light Theme Base */
+  html.theme-light body,
+  html.light body {
+    @apply bg-[#f8fafc] text-slate-900;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.1), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 90% 80%, rgba(16, 185, 129, 0.06), transparent 60%),
+      linear-gradient(180deg, #f8fafc 0%, #eef2f6 100%);
+  }
+
+  /* Matrix Theme Base */
+  html.theme-matrix body {
+    @apply bg-[#020703] text-emerald-100;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(168, 85, 247, 0.2), transparent 70%),
+      linear-gradient(180deg, #020703 0%, #041006 100%);
+  }
+
+  /* Midnight Theme Base */
+  html.theme-midnight body {
+    @apply bg-[#07040f] text-purple-100;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(168, 85, 247, 0.2), transparent 70%),
+      linear-gradient(180deg, #07040f 0%, #0f091f 100%);
+  }
+}
+
+/* ==========================================================================
+   Header & Sidebar Theme Classes
+   ========================================================================== */
+html.theme-light header,
+html.light header {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+html.theme-light aside,
+html.light aside {
+  background: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+  box-shadow: 1px 0 3px 0 rgba(0, 0, 0, 0.03) !important;
+}
+
+html.theme-matrix header {
+  background: rgba(3, 15, 6, 0.95) !important;
+  border-bottom-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+html.theme-matrix aside {
+  background: rgba(2, 10, 4, 0.95) !important;
+  border-right-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+html.theme-midnight header {
+  background: rgba(12, 6, 24, 0.95) !important;
+  border-bottom-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+html.theme-midnight aside {
+  background: rgba(8, 4, 18, 0.95) !important;
+  border-right-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* ==========================================================================
+   Cyber Cards & Glass Panels
+   ========================================================================== */
+.cyber-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+html.theme-light .cyber-card,
+html.light .cyber-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02) !important;
+  color: #0f172a !important;
+}
+
+html.theme-matrix .cyber-card {
+  background: rgba(4, 16, 6, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 20, 5, 0.6);
+}
+
+html.theme-midnight .cyber-card {
+  background: rgba(15, 9, 31, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(10, 0, 25, 0.6);
+}
+
+/* ==========================================================================
+   Comprehensive Light Theme Overrides
+   ========================================================================== */
+
+/* 1. Backgrounds & Containers */
+html.theme-light .bg-slate-900,
+html.theme-light .bg-slate-950,
+html.theme-light [class*="bg-slate-900"],
+html.theme-light [class*="bg-slate-950"],
+html.light .bg-slate-900,
+html.light .bg-slate-950,
+html.light [class*="bg-slate-900"],
+html.light [class*="bg-slate-950"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.theme-light .bg-slate-800,
+html.theme-light [class*="bg-slate-800"],
+html.light .bg-slate-800,
+html.light [class*="bg-slate-800"] {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Arbitrary Dark Background Overrides */
+html.theme-light [class*="bg-[#0"],
+html.theme-light [class*="bg-[#1"],
+html.light [class*="bg-[#0"],
+html.light [class*="bg-[#1"] {
+  background-color: #ffffff !important;
+}
+
+/* Hero Banners and Gradient Containers */
+html.theme-light [class*="from-[#0c182c]"],
+html.theme-light [class*="from-slate-900"],
+html.light [class*="from-[#0c182c]"],
+html.light [class*="from-slate-900"] {
+  background-image: linear-gradient(135deg, #ffffff 0%, #f0f9ff 60%, #f8fafc 100%) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+/* 2. Tinted Accent Panels (Cyan, Emerald, Purple, Rose, Amber) */
+html.theme-light [class*="bg-cyan-950"],
+html.light [class*="bg-cyan-950"] {
+  background-color: #ecfeff !important;
+  color: #0369a1 !important;
+  border-color: #a5f3fc !important;
+}
+
+html.theme-light [class*="bg-emerald-950"],
+html.light [class*="bg-emerald-950"] {
+  background-color: #f0fdf4 !important;
+  color: #15803d !important;
+  border-color: #bbf7d0 !important;
+}
+
+html.theme-light [class*="bg-purple-950"],
+html.light [class*="bg-purple-950"] {
+  background-color: #faf5ff !important;
+  color: #7e22ce !important;
+  border-color: #e9d5ff !important;
+}
+
+html.theme-light [class*="bg-rose-950"],
+html.light [class*="bg-rose-950"] {
+  background-color: #fff1f2 !important;
+  color: #be123c !important;
+  border-color: #fecdd3 !important;
+}
+
+html.theme-light [class*="bg-amber-950"],
+html.light [class*="bg-amber-950"] {
+  background-color: #fffbeb !important;
+  color: #b45309 !important;
+  border-color: #fde68a !important;
+}
+
+/* 3. Text Contrast Overrides */
+html.theme-light .text-slate-100,
+html.theme-light .text-slate-200,
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: #0f172a !important;
+}
+
+html.theme-light .text-slate-300,
+html.light .text-slate-300 {
+  color: #1e293b !important;
+}
+
+html.theme-light .text-slate-400,
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+html.theme-light .text-slate-500,
+html.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+html.theme-light .text-cyan-300,
+html.theme-light .text-cyan-400,
+html.light .text-cyan-300,
+html.light .text-cyan-400 {
+  color: #0284c7 !important;
+}
+
+html.theme-light .text-emerald-300,
+html.theme-light .text-emerald-400,
+html.light .text-emerald-300,
+html.light .text-emerald-400 {
+  color: #15803d !important;
+}
+
+html.theme-light .text-purple-200,
+html.theme-light .text-purple-300,
+html.theme-light .text-purple-400,
+html.light .text-purple-200,
+html.light .text-purple-300,
+html.light .text-purple-400 {
+  color: #7e22ce !important;
+}
+
+html.theme-light .text-rose-300,
+html.theme-light .text-rose-400,
+html.light .text-rose-300,
+html.light .text-rose-400 {
+  color: #be123c !important;
+}
+
+html.theme-light .text-amber-300,
+html.theme-light .text-amber-400,
+html.light .text-amber-300,
+html.light .text-amber-400 {
+  color: #b45309 !important;
+}
+
+/* 4. Borders & Dividers */
+html.theme-light .border-slate-800,
+html.theme-light .border-slate-700,
+html.theme-light .border-slate-600,
+html.theme-light [class*="border-slate-800"],
+html.theme-light [class*="border-slate-700"],
+html.light .border-slate-800,
+html.light .border-slate-700,
+html.light .border-slate-600,
+html.light [class*="border-slate-800"],
+html.light [class*="border-slate-700"] {
+  border-color: #e2e8f0 !important;
+}
+
+/* 5. Form Inputs, Selects, and Textareas */
+html.theme-light input,
+html.theme-light select,
+html.theme-light textarea,
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.theme-light input::placeholder,
+html.theme-light textarea::placeholder,
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* 6. Modals, Dialogs, Popups, and Dropdowns */
+html.theme-light .fixed.inset-0[class*="bg-black"],
+html.light .fixed.inset-0[class*="bg-black"] {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+html.theme-light .fixed.inset-0 [class*="max-w-"],
+html.theme-light .absolute[class*="bg-slate-900"],
+html.light .fixed.inset-0 [class*="max-w-"],
+html.light .absolute[class*="bg-slate-900"] {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 7. Tables & Lists */
+html.theme-light table th,
+html.light table th {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+html.theme-light table td,
+html.light table td {
+  border-bottom: 1px solid #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+html.theme-light table tbody tr:hover,
+html.light table tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* 8. Sidebar & Navigation */
+html.theme-light aside [class*="from-cyan-950"],
+html.light aside [class*="from-cyan-950"] {
+  background: linear-gradient(to right, #e0f2fe, #f0f9ff) !important;
+  border-color: #38bdf8 !important;
+  color: #0369a1 !important;
+  box-shadow: 0 2px 4px 0 rgba(14, 165, 233, 0.08) !important;
+}
+
+html.theme-light aside [class*="text-slate-300"],
+html.light aside [class*="text-slate-300"] {
+  color: #334155 !important;
+}
+
+/* 9. Hover States in Light Theme */
+html.theme-light .hover\:bg-slate-800:hover,
+html.theme-light [class*="hover:bg-slate-800"]:hover,
+html.theme-light [class*="hover:bg-slate-700"]:hover,
+html.theme-light [class*="hover:bg-slate-900"]:hover,
+html.light .hover\:bg-slate-800:hover,
+html.light [class*="hover:bg-slate-800"]:hover,
+html.light [class*="hover:bg-slate-700"]:hover,
+html.light [class*="hover:bg-slate-900"]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html.theme-light .hover\:text-white:hover,
+html.theme-light [class*="hover:text-white"]:hover,
+html.light .hover\:text-white:hover,
+html.light [class*="hover:text-white"]:hover {
+  color: #0f172a !important;
+}
+
+html.theme-light .hover\:text-cyan-300:hover,
+html.theme-light [class*="hover:text-cyan-300"]:hover,
+html.light .hover\:text-cyan-300:hover,
+html.light [class*="hover:text-cyan-300"]:hover {
+  color: #0284c7 !important;
+}
+
+/* ==========================================================================
+   Interactive Effects & Monospace
+   ========================================================================== */
+.cyber-card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cyber-card-hover:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 12px 40px -8px rgba(14, 165, 233, 0.25);
+  transform: translateY(-2px);
+}
+
+.cyber-glow-cyan {
+  box-shadow: 0 0 20px -3px rgba(6, 182, 212, 0.45);
+}
+
+.cyber-glow-emerald {
+  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.45);
+}
+
+.cyber-glow-rose {
+  box-shadow: 0 0 20px -3px rgba(244, 63, 94, 0.45);
+}
+
+.cyber-glow-amber {
+  box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.45);
+}
+
+/* Monospace Hex Dump formatting */
+.font-mono-hex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+html.theme-light ::-webkit-scrollbar-track,
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.8);
+  border-radius: 4px;
+}
+html.theme-light ::-webkit-scrollbar-thumb,
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.5);
+}
+html.theme-light ::-webkit-scrollbar-thumb:hover,
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
